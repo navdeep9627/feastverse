@@ -1,0 +1,60 @@
+html { 
+  background: url('tomato.gif') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+
+button[name=user] {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+    width: 300px;
+    padding: 25px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 60px;
+    margin-left: 250px;
+  }
+
+  button[name=admin] {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+    width: 300px;
+    padding: 25px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: -300px;
+    margin-left: 650px;
+  }
+
+  .clearfix1 {
+    margin-top: 1px;
+    margin-left: 20px;
+  }
+  .clearfix2 {
+    margin-top: -55px;
+    margin-left: 180px;
+  }
+
+  .clearfix3 {
+    margin-top: -115px;
+    margin-left: 35px;
+  }
+
+  body{
+    /* background-repeat: no-repeat; */
+    height:0%;
+    width: 0%;
+    margin:0;
+    padding:0;
+  }

@@ -1,0 +1,79 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+header .header{
+  background-color: #fff;
+  height: 45px;
+}
+header a img{
+  width: 134px;
+margin-top: 4px;
+}
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.login-page .form .login{
+  margin-top: -10px;
+margin-bottom: 26px;
+font-size: 20px;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #f2f2f2;
+  width: 350px;
+  height: 400px;
+  margin-left: 320px;
+  margin-top: 30px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: gainsboro;
+  width: 100%;
+  border: 0;
+  margin: 10px 0 30px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    background-color: #328f8a;
+    background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+    margin-top: 15px;
+    width: 100%;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 16px;
+    cursor: pointer;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: black;
+  font-size: 14px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+body {
+  background-repeat: no-repeat;
+  height:90%;
+  width: 50%;
+  margin:0;
+  padding:0;
+}
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>User Screen</title>
+    <style>
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          height: 2cm;
+          overflow: hidden;
+          background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+        }
+        
+        li {
+          float: left;
+        }
+        
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+    </style>
+        
+</head>
+    <body style="background-color:beige">
+       
+<ul>
+    <li><a class="active">Visit your nearby stores for amazing discounts</a></li>
+  </ul>
+  <h1>WELCOME TO FEASTVERSE</h1>
+       
+        <link rel="stylesheet" href="{{ url_for('static', filename='CustomerLogin.css') }}">
+
+        <div class="clearfix1">
+            <a href="manageaccount">
+            <button type="submit" name="manage">Manage Account</button>
+          </a>
+          </div>
+        
+          <div class="clearfix2">
+          <a href="balancerecharge">
+            <button type="submit" name="balance">Balance Recharge</button>
+          </a>
+        </div>
+
+        <div class="clearfix3">
+            <a href="deleteaccount">
+              <button type="submit" name="delete">Delete Account</button>
+            </a>
+          </div>
+        
+        <div class="clearfix4">
+            <img src={{ url_for('static', filename='bgLogo.png')}} alt="HTML5 Icon" style="width:440px;height:440px;">
+        </div>
+
+        <div class="clearfix5">
+            <img src={{ url_for('static', filename='bgLogo.png') }} alt="HTML5 Icon" style="width:440px;height:440px;">
+        </div>
+
+        <div class="clearfix6">
+            <a href="customerlogin">
+            <input type="image" id="myimage" src={{ url_for('static', filename='Logout.png')}} style="width:50px;height:50px;">
+        </a>
+        </div>
+
+    </body>
+</html>
