@@ -3,7 +3,6 @@ if __name__ == '__main__':
     # app.debug == True
     app.run(debug=True)
 
-#test commit_Tarun
     
 # from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
