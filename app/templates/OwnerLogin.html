@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="{{ url_for('static', filename='AdminLogin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='OwnerLogin.css') }}">
 <title>Admin login</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
             <p>Please enter your credentials to login.</p>
           </div>
         </div>
-        <form class="login-form" method = "POST" action = "/adminvalidation"> 
+        <form class="login-form" method = "POST" action = "/ownervalidation"> 
           <input type="text" placeholder="username" name = "username"/>
           <input type="password" placeholder="password" name = "password"/>
           <button>login</button>

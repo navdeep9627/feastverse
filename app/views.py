@@ -18,6 +18,7 @@ class Customer(db.Model):
     fullname = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(30), nullable=False)
     phonenum = db.Column(db.String(20), nullable=False)
+    address = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(20), nullable=False)
     accountbalance = db.Column(db.Integer, nullable=True)
 
@@ -25,7 +26,7 @@ class Customer(db.Model):
         return f"Customer('{self.custid}', '{self.username}', '{self.fullname}', '{self.email}','{self.phonenum}', '{self.password}')"
 
 class Item(db.Model):
-    itemid = db.Column(db.Integer, primary_key = True)
+    itemid = db.Column(db.Integer, primary_key = True, autoincrement = True)
     itemname = db.Column(db.String(20), unique = True, nullable=False)
     deliverydate = db.Column(db.DateTime, nullable=False, default = datetime.utcnow)
     expirydate = db.Column(db.DateTime, nullable=False)
@@ -54,13 +55,7 @@ def createaccount():
 
 @app.route('/getcreatedaccount', methods =['POST'])
 def getcreatedaccount(): 
-    name = request.form['name']
-    phno = request.form['phoneNo']
-    address = request.form['address']
-    email = request.form['email']
-    uname = request.form['uname']
-    psw = request.form['psw']
-    customerdetails = Customer(username = uname, fullname = name, email = email, phonenum = phno, password = psw)
+    customerdetails = Customer(username = request.form['uname'], fullname = request.form['name'], email = request.form['email'], phonenum = request.form['phoneNo'], password = request.form['psw'], address = request.form['address'])
     db.session.add(customerdetails)
     db.session.commit()
     return render_template("CustomerLogin.html")
@@ -69,7 +64,7 @@ def getcreatedaccount():
 def customerlogin():
     return render_template("CustomerLogin.html")
 
-@app.route('/loginvalidation', methods =['POST'])
+@app.route('/loginvalidation', methods =['POST', 'GET'])
 def loginvalidation():
     uname = str(request.form['username'])
     psd = str(request.form['password'])
@@ -77,38 +72,39 @@ def loginvalidation():
     tableentry = db.session.query(Customer.password).filter(Customer.username == uname)
     for validationvar in tableentry:
         if validationvar.password == psd:
-            for testusn in tableentryname:
+            for testdata in tableentryname:
                 global usn
-                usn = testusn.username
-            return render_template("CustomerLoggedIn.html")
+                usn = testdata.username
+                global password
+                password = testdata.password
+            return render_template("CustomerDashboard.html")
     return "<H2>The password/username entered is incorrect. Please go back and try again.</H2>" 
-    
 
-       
-@app.route('/customerloggedin')
+@app.route('/customerdashboard')
 def customerloggedin():
-    return render_template("CustomerLoggedIn.html")
-
-@app.route('/profilepage')
-def profilepage():
-    return render_template("ProfilePage.html")
+    return render_template("CustomerDashboard.html")
 
 @app.route('/manageaccount')
 def manageaccount():
     return render_template("ManageAccount.html")
 
-@app.route('/updateaccount')
-def updateaccount():
-    return render_template("UpdateAccount.html")
-
 @app.route('/updatevalues', methods =['POST'])
 def getupdatevalue():
     selectedfield = str(request.form['selectedfield'])
-    updatevalue = str(request.form['updatevalue'])
     customerupdate = Customer.query.filter_by(username = usn).first()
-    customerupdate.fullname = updatevalue
+    if selectedfield == "1":
+        customerupdate.fullname = str(request.form['updatename'])
+    elif selectedfield == "2":
+        customerupdate.phonenum = str(request.form['updatenum'])
+    elif selectedfield == "3":
+        customerupdate.address = str(request.form['updateadd'])
+    elif selectedfield == "4":
+        customerupdate.email = str(request.form['updateemail'])
+    elif selectedfield == "5":
+        customerupdate.password = str(request.form['updatepsw'])
     db.session.commit()
-    return render_template("CustomerLoggedIn.html")
+    print(Customer.query.all())
+    return render_template("CustomerDashboard.html")
 
 @app.route('/balancerecharge')
 def balancerecharge():
@@ -123,29 +119,27 @@ def balanceupdate():
     db.session.commit()
     return render_template("CustomerLoggedIn.html")
 
-@app.route('/deleteaccount')
-def deleteaccount():
-    return render_template("DeleteAccount.html")
-
 @app.route('/accountremoval')
 def accountremoval():
-    db.session.delete(usn)
+    deleteval = Customer.query.filter_by(username = usn).first()
+    db.session.delete(deleteval)
     db.session.commit()
+    print(Customer.query.all())
     return render_template("CustomerLogin.html") 
 
-@app.route('/adminlogin')
+@app.route('/ownerlogin')
 def adminlogin():
-    return render_template("AdminLogin.html")
+    return render_template("OwnerLogin.html")
 
-@app.route('/adminvalidation', methods = ['POST'])
+@app.route('/ownervalidation', methods = ['POST'])
 def adminvalidation():
     uname = str(request.form['username'])
     psd = str(request.form['password'])
-    if uname == 'Admin' and psd == 'password':
-        return render_template("AdminDashboard.html")
+    if uname == 'Owner' and psd == 'password':
+        return render_template("OwnerDashboard.html")
     else:
         return "<h2>The password or username entered was incorrect, please go back and try again.</h2>" 
 
-@app.route('/admindashbard')
+@app.route('/ownerdashbard')
 def admindashboard():
-    return render_template("AdminDashboard.html")
+    return render_template("OwnerDashboard.html")
