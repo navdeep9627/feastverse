@@ -71,8 +71,8 @@
        <img src="update.jpg" alt="Snow" style="width:100%; height: 100%;">
        <div class="clearfix2">
        <h1 style="margin-left: 60px;">Update your Account Information</h1>
-       <form>
-           <select class="clearfix1" id="a" onchange="ShowfieldDiv();">
+       <form action = '/updatevalues', method="post">
+           <select class="clearfix1" id="a" name = "selectedfield" onchange="ShowfieldDiv();">
                <option value="0">Select the field to update</option>
                <option value="1">Name</option>
                <option value="2">Phone Number</option>
@@ -81,7 +81,7 @@
                <option value="5">Password</option>
              </select>
        <div class="clearfix3">
-         <input type="text" id="box1Div" style="display:none;" placeholder="Enter name to update"><br>
+         <input type="text" id="box1Div" style="display:none;" placeholder="Enter name to update" name = "updatevalue"><br>
          <input type="number" id="box2Div" style="display:none;" placeholder="Enter number to update"><br>
          <input type="text" id="box3Div" style="display:none;" placeholder="Enter Address to update"><br>
          <input type="email" id="box4Div" style="display:none;" placeholder="Enter E-mail to update"><br>
