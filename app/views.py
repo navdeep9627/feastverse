@@ -138,8 +138,10 @@ def adminlogin():
 def adminvalidation():
     uname = str(request.form['username'])
     psd = str(request.form['password'])
+    tableentryname = db.session.query(Item)
     if uname == 'Owner' and psd == 'password':
-        return render_template("OwnerDashboard.html")
+        for testdata in tableentryname:
+            return render_template("OwnerDashboard.html", itemid = testdata.itemid, itemname = testdata.itemname, deliverydate = testdata.deliverydate, expirydate = testdata.expirydate, costprice = testdata.costprice, sellingprice = testdata.sellingprice, quantity = testdata.quantity, minquantity = testdata.minquantity, status = testdata.status)
     else:
         return "<h2>The password or username entered was incorrect, please go back and try again.</h2>" 
 
