@@ -23,7 +23,7 @@ class Customer(db.Model):
     accountbalance = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return f"Customer('{self.custid}', '{self.username}', '{self.fullname}', '{self.email}','{self.phonenum}', '{self.password}')"
+        return f"Customer('{self.custid}', '{self.username}', '{self.fullname}', '{self.email}','{self.phonenum}', '{self.password}', '{self.address}', '{self.accountbalance}')"
 
 class Item(db.Model):
     itemid = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -64,7 +64,7 @@ def getcreatedaccount():
 def customerlogin():
     return render_template("CustomerLogin.html")
 
-@app.route('/loginvalidation', methods =['POST', 'GET'])
+@app.route('/loginvalidation', methods =['POST'])
 def loginvalidation():
     uname = str(request.form['username'])
     psd = str(request.form['password'])
@@ -77,11 +77,14 @@ def loginvalidation():
                 usn = testdata.username
                 global password
                 password = testdata.password
-            return render_template("CustomerDashboard.html")
+            return render_template("CustomerDashboard.html", username = testdata.username, fullname = testdata.fullname, email = testdata.email, phonenum = testdata.phonenum, address = testdata.address, accountbalance = testdata.accountbalance)
     return "<H2>The password/username entered is incorrect. Please go back and try again.</H2>" 
 
 @app.route('/customerdashboard')
-def customerloggedin():
+def customerdashboard():
+    tableentryname = db.session.query(Customer).filter(Customer.username == usn)
+    for testdata in tableentryname:
+        return render_template("CustomerDashboard.html", username = testdata.username, fullname = testdata.fullname, email = testdata.email, phonenum = testdata.phonenum, address = testdata.address, accountbalance = testdata.accountbalance)
     return render_template("CustomerDashboard.html")
 
 @app.route('/manageaccount')
