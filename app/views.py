@@ -141,7 +141,16 @@ def adminvalidation():
     tableentryname = db.session.query(Item)
     if uname == 'Owner' and psd == 'password':
         for testdata in tableentryname:
-            return render_template("OwnerDashboard.html", itemid = testdata.itemid, itemname = testdata.itemname, deliverydate = testdata.deliverydate, expirydate = testdata.expirydate, costprice = testdata.costprice, sellingprice = testdata.sellingprice, quantity = testdata.quantity, minquantity = testdata.minquantity, status = testdata.status)
+            itemid = testdata.itemid
+            itemname = testdata.itemname
+            deliverydate = testdata.deliverydate
+            expirydate = testdata.expirydate
+            costprice = testdata.costprice
+            sellingprice = testdata.sellingprice
+            quantity = testdata.quantity
+            minquantity = testdata.minquantity
+            status = testdata.status
+        return render_template("OwnerDashboard.html", itemid, itemname, deliverydate, expirydate, costprice, sellingprice, quantity, minquantity, status)
     else:
         return "<h2>The password or username entered was incorrect, please go back and try again.</h2>" 
 
