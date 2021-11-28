@@ -15,6 +15,8 @@
         
         li {
           float: left;
+          margin-top: 20px;
+          margin-left: 20px;
         }
         
         li a {
@@ -30,43 +32,73 @@
     <body style="background-color:beige">
        
 <ul>
-    <li><a class="active">Visit your nearby stores for amazing discounts</a></li>
+    <li><class="active">Visit your nearby stores for amazing discounts</li>
   </ul>
   <h1>WELCOME TO FEASTVERSE</h1>
        
-        <link rel="stylesheet" href="{{ url_for('static', filename='CustomerLogin.css') }}">
+        <link rel="stylesheet" href="userlogin.css">
 
         <div class="clearfix1">
-            <a href="manageaccount">
+            <a href="loginC.html">
             <button type="submit" name="manage">Manage Account</button>
           </a>
           </div>
         
           <div class="clearfix2">
-          <a href="balancerecharge">
+          <a href="loginA.html">
             <button type="submit" name="balance">Balance Recharge</button>
           </a>
         </div>
 
         <div class="clearfix3">
-            <a href="deleteaccount">
-              <button type="submit" name="delete">Delete Account</button>
-            </a>
+            <!-- <a href="loginA.html"> -->
+              <button onclick="document.getElementById('id01').style.display='block'" name="delete">Delete Account</button>
+            <!-- </a> -->
           </div>
         
         <div class="clearfix4">
-            <img src={{ url_for('static', filename='bgLogo.png')}} alt="HTML5 Icon" style="width:440px;height:440px;">
+            <p style="font-weight: bold;">Your Account Details:</p> 
+            <p>{{Name}}</p>
+            <p>{{E-mail}}</p>
         </div>
 
         <div class="clearfix5">
-            <img src={{ url_for('static', filename='bgLogo.png') }} alt="HTML5 Icon" style="width:440px;height:440px;">
+            <img src="logobg.png" alt="HTML5 Icon" style="width:440px;height:440px;">
         </div>
 
         <div class="clearfix6">
-            <a href="customerlogin">
-            <input type="image" id="myimage" src={{ url_for('static', filename='Logout.png')}} style="width:50px;height:50px;">
+            <a href="loginC.html">
+            <input type="image" id="myimage" src="logout1.png" style="width:50px;height:50px;">
         </a>
         </div>
-
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content">
+            <div class="container">
+              <h2>Delete Account</h2>
+              <p>Are you sure you want to delete your account?</p>
+            
+              <div class="clearfix">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="button" onclick="document.getElementById('id02').style.display='block'" class="deletebtn">Delete</button>              
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="id02" class="modal1">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content1">
+            <div class="container1">
+              <p style="margin-left: 20px;">Please confirm your existing password</p>
+              <div class="div2">
+                  <form>
+                    <input class="box" type="password" placeholder="Enter existing password" id="pswd" style="margin-left: 30px;">
+                    <br>
+                    </form>
+                    </div>
+                    <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn1" >Cancel</button>
+                    <button type="button" class="confirm" onclick="checkPswd().style.display='none'" class="deletebtn1">Ok</button>
+                  </div>
+            </div>
     </body>
 </html>
