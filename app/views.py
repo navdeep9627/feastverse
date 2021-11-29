@@ -28,8 +28,8 @@ class Customer(db.Model):
 class Item(db.Model):
     itemid = db.Column(db.Integer, primary_key = True, autoincrement = True)
     itemname = db.Column(db.String(20), unique = True, nullable=False)
-    deliverydate = db.Column(db.DateTime, nullable=False, default = datetime.utcnow)
-    expirydate = db.Column(db.DateTime, nullable=False)
+    deliverydate = db.Column(db.String(20), nullable=False, default = datetime.utcnow)
+    expirydate = db.Column(db.String(20), nullable=False)
     costprice = db.Column(db.Integer, nullable=False)
     sellingprice = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
@@ -46,7 +46,7 @@ db.create_all()
 
 @app.route('/')
 def index():
-    print(Customer.query.all())
+    # print(Item.query.all())
     return render_template("Index.html")
 
 @app.route('/createaccount')
