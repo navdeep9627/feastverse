@@ -22,16 +22,23 @@
             <th>Expiry Date</th>
             <th>Cost Price</th>
             <th>Selling Price</th>
+            <th>Minimum Quantity</th>
           </tr>
+          {% for w in items %}
+          <!-- {% if w['quantity'] < w['minimumquantity'] %} -->
           <tr>
-            <td>{{itemid}}</td>
-            <td>{{itemname}}</td>
-            <td>{{quantity}}</td>
-            <td>{{deliverydate}}</td>
-            <td>{{expirydate}}</td>
-            <td>{{costprice}}</td>
-            <td>{{sellingprice}}</td>
+            
+            <td>{{ w['itemid'] }}</td>
+            <td>{{ w['itemname'] }}</td>
+            <td>{{ w['quantity'] }}</td>
+            <td>{{ w['deliverydate'] }}</td>
+            <td>{{ w['expirydate'] }}</td>
+            <td>{{ w['costprice'] }}</td>
+            <td>{{ w['sellingprice'] }}</td>
+            <td>{{ w['minimumquantity']}}</td>
           </tr>
+          <!-- {% endif %} -->
+          {% endfor %}
           </table>
       </div>
       

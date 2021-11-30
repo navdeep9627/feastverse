@@ -107,7 +107,7 @@ def getupdatevalue():
         customerupdate.password = str(request.form['updatepsw'])
     db.session.commit()
     print(Customer.query.all())
-    return render_template("CustomerDashboard.html")
+    return render_template("CustomerDashboard.html",username = customerupdate.username, fullname = customerupdate.fullname, email = customerupdate.email, phonenum = customerupdate.phonenum, address = customerupdate.address, accountbalance = customerupdate.accountbalance)
 
 @app.route('/balancerecharge')
 def balancerecharge():
@@ -140,17 +140,19 @@ def adminvalidation():
     psd = str(request.form['password'])
     tableentryname = db.session.query(Item)
     if uname == 'Owner' and psd == 'password':
+        items=[]
         for testdata in tableentryname:
-            itemid = testdata.itemid
-            itemname = testdata.itemname
-            deliverydate = testdata.deliverydate
-            expirydate = testdata.expirydate
-            costprice = testdata.costprice
-            sellingprice = testdata.sellingprice
-            quantity = testdata.quantity
-            minquantity = testdata.minquantity
-            status = testdata.status
-        return render_template("OwnerDashboard.html", itemid=testdata.itemid, itemname=testdata.itemname, deliverydate=testdata.deliverydate, expirydate=testdata.expirydate, costprice=testdata.costprice, sellingprice=testdata.sellingprice, quantity=testdata.quantity, minquantity=testdata.minquantity, status=testdata.status)
+            a={'itemid':testdata.itemid,
+                'itemname':testdata.itemname,
+                'deliverydate':testdata.deliverydate,
+                'expirydate':testdata.expirydate,
+                'costprice':testdata.costprice,
+                'sellingprice':testdata.sellingprice,
+                'quantity':testdata.quantity,
+                'minimumquantity':testdata.minquantity,
+                'status':testdata.status}
+            items.append(a)
+        return render_template("OwnerDashboard.html", items=items)
     else:
         return "<h2>The password or username entered was incorrect, please go back and try again.</h2>" 
 

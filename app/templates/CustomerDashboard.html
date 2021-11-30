@@ -34,7 +34,7 @@
   </ul>
   <h1>WELCOME TO FEASTVERSE</h1>
        
-        <link rel="stylesheet" href="{{ url_for('static', filename='CustomerLogin.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='CustomerDashboard.css') }}">
 
         <div class="clearfix1">
             <a href="manageaccount">
@@ -54,12 +54,12 @@
         </form>
         <div class="clearfix4">
           <p style="font-weight: bold;">Your Account Details:</p> 
-          <p>{{username}}</p>
-          <p>{{fullname}}</p>
-          <p>{{email}}</p>
-          <p>{{phonenum}}</p>
-          <p>{{address}}</p>
-          <p>{{accountbalance}}</p>
+          <p>Username:  {{username}}</p>
+          <p>Name:  {{fullname}}</p>
+          <p>E-mail:  {{email}}</p>
+          <p>Phone Number:  {{phonenum}}</p>
+          <p>Address:  {{address}}</p>
+          <p>Account Balance:  {{accountbalance}}</p>
         </div>
 
         <div class="clearfix5">
