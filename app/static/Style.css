@@ -1,5 +1,5 @@
 html { 
-  background: url('tomato.gif') no-repeat center center fixed; 
+  background: url('FEASTVERSE.jpg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -18,7 +18,7 @@ button[name=user] {
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 110px;
+    margin-top: 200px;
     margin-left: 220px;
   }
 
@@ -33,7 +33,7 @@ button[name=user] {
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
-    margin-top: -250px;
+    margin-top: 200px;
     margin-left: 660px;
   }
 
