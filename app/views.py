@@ -11,7 +11,7 @@ from sqlalchemy.orm import session
 
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///coen6311.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///feastverse.db'
 db = SQLAlchemy(app)
 
 class Customer(db.Model):
@@ -48,10 +48,6 @@ db.create_all()
 
 @app.route('/')
 def index():
-    # Item1 = Item(itemname = 'Apples', expirydate = '2023-06-29 08:15:27.243860', costprice = 30, sellingprice = 30, quantity = 50, minquantity = 5, status = 0)
-    # db.session.add(Item1)
-    # db.session.commit()
-    # print(Item.query.all())
     return render_template("Index.html")
 
 @app.route('/createaccount')
@@ -111,7 +107,6 @@ def getupdatevalue():
     elif selectedfield == "5":
         customerupdate.password = str(request.form['updatepsw'])
     db.session.commit()
-    print(Customer.query.all())
     return render_template("CustomerDashboard.html",username = customerupdate.username, fullname = customerupdate.fullname, email = customerupdate.email, phonenum = customerupdate.phonenum, address = customerupdate.address, accountbalance = customerupdate.accountbalance)
 
 @app.route('/updateItems', methods =['POST'])
@@ -123,6 +118,8 @@ def getupdateItem():
         Itemupdate.itemname = str(request.form['updatename'])
     elif selectedfield == "2":
         Itemupdate.quantity = str(request.form['updatequantity'])
+        if int(request.form['updatequantity']) >= int(Itemupdate.quantity):
+            Itemupdate.status = 'delivered'
     elif selectedfield == "3":
         Itemupdate.deliverydate = str(request.form['updatedd'])
     elif selectedfield == "4":
@@ -132,8 +129,6 @@ def getupdateItem():
     elif selectedfield == "6":
         Itemupdate.sellingprice = str(request.form['updatesp'])
     db.session.commit()
-    print(selectedid)
-    # print(Customer.query.all())
     items=[]
     tableentryname = db.session.query(Item)
     for testdata in tableentryname:
@@ -155,7 +150,6 @@ def balancerecharge():
 
 @app.route('/balanceupdate', methods =['POST'])
 def balanceupdate():
-    # check type casting to Integer from String!!!!!!!!!!!!
     rechargeamt = 0
     rechargeamt = int(request.form['rechargeamt'])
     balanceupdate = Customer.query.filter_by(username = usn).first()
@@ -165,14 +159,13 @@ def balanceupdate():
     for testdata in tableentryname:
         print("hi")
     return render_template("CustomerDashboard.html", username = testdata.username, fullname = testdata.fullname, email = testdata.email, phonenum = testdata.phonenum, address = testdata.address, accountbalance = testdata.accountbalance)
-    
 
 @app.route('/accountremoval')
 def accountremoval():
     deleteval = Customer.query.filter_by(username = usn).first()
     db.session.delete(deleteval)
     db.session.commit()
-    print(Customer.query.all())
+    # print(Customer.query.all())
     return render_template("CustomerLogin.html") 
 
 @app.route('/ownerlogin')
@@ -208,14 +201,14 @@ def admindashboard():
     for testdata in tableentryname:
         print("hi")
         a={'itemid':testdata.itemid,
-                'itemname':testdata.itemname,
-                'deliverydate':testdata.deliverydate,
-                'expirydate':testdata.expirydate,
-                'costprice':testdata.costprice,
-                'sellingprice':testdata.sellingprice,
-                'quantity':testdata.quantity,
-                'minimumquantity':testdata.minquantity,
-                'status':testdata.status}
+            'itemname':testdata.itemname,
+            'deliverydate':testdata.deliverydate,
+            'expirydate':testdata.expirydate,
+            'costprice':testdata.costprice,
+            'sellingprice':testdata.sellingprice,
+            'quantity':testdata.quantity,
+            'minimumquantity':testdata.minquantity,
+            'status':testdata.status}
         items.append(a)
     return render_template("OwnerDashboard.html", items=items)
 
