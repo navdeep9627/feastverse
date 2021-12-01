@@ -3,6 +3,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <title>Manage Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ManageAccount.css') }}">
+
     <SCRIPT>
                function ShowfieldDiv() {
                    if (document.getElementById('a').value == '1') {
@@ -52,26 +54,14 @@
                    }
                    };
                    
-
-               function checkPswd() {
-               var confirmPassword = "1234";
-               var password = document.getElementById("pswd").value;
-               if (password == confirmPassword) {
-               alert('Information is updated successfully');
-               window.location.href="userlogin.html";
-                }
-               else{
-                   alert('Incorrect Password, Please try again');
-               }
-}
                </SCRIPT>
 </head>
    <body>
        <div class="start">
        <img src="{{ url_for('static', filename='update.jpg') }}" alt="Snow" style="width:100%; height: 100%;">
        <div class="clearfix2">
-       <h1 style="margin-left: 60px;">Update your Account Information</h1>
-       <form action = '/updatevalues', method="post">
+        <form action = '/updatevalues', method="post">
+       <h1 style="margin-left: 60px;">Update your Account Information</h1>      
            <select class="clearfix1" id="a" name = "selectedfield" onchange="ShowfieldDiv();">
                <option value="0">Select the field to update</option>
                <option value="1">Name</option>
@@ -80,36 +70,15 @@
                <option value="4">E-mail</option>
                <option value="5">Password</option>
              </select>
-       <div class="clearfix3">
-         <input type="text" id="box1Div" style="display:none;" placeholder="Enter name to update" name = "updatename"><br>
-         <input type="number" id="box2Div" style="display:none;" placeholder="Enter number to update" name = "updatenum"><br>
-         <input type="text" id="box3Div" style="display:none;" placeholder="Enter Address to update" name = "updateadd"><br>
-         <input type="email" id="box4Div" style="display:none;" placeholder="Enter E-mail to update" name = "updateemail"><br>
-         <input type="password" id="box5Div" style="display:none;" placeholder="Enter new password" name = "updatepsw"><br>
-         <input type="submit" id= "btn" style="display: block;" onclick="document.getElementById('id01').style.display='block'" value="Submit"><br>
-         </div>
+       <!-- <div class="clearfix3"> -->
+         <input type="text" id="box1Div" style="display:none;" placeholder="Enter name to update" name = "updatename" ><br>
+         <input type="number" id="box2Div" style="display:none;" placeholder="Enter number to update" name = "updatenum" ><br>
+         <input type="text" id="box3Div" style="display:none;" placeholder="Enter Address to update" name = "updateadd" ><br>
+         <input type="email" id="box4Div" style="display:none;" placeholder="Enter E-mail to update" name = "updateemail" ><br>
+         <input type="password" id="box5Div" style="display:none;" placeholder="Enter new password" name = "updatepsw" ><br>
+         <input type="submit" id= "btn" style="display: block;" value="Submit"><br>
+         <!-- </div> -->
        </form>
    </div>
-           <!-- <div class="clearfix3">
-                 <button class="btn" onclick="document.getElementById('id01').style.display='block'" name="update">SUBMIT</button>
-               </div> -->
-          
-           <div id="id01" class="modal">
-               <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> -->
-               <form class="modal-content">
-                 <div class="container">
-                   <!-- <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span> -->
-                   <p>Please confirm your existing password</p>
-                   <div class="div2">
-                       <form>
-                         <input class="box" type="password" placeholder="Enter existing password" id="pswd">
-                         <br>
-                         </form>
-                         </div>
-                         <button type="button" onclick="document.getElementById('id01').style.display='none'" >Cancel</button>
-                         <button type="button" class="confirm" onclick="checkPswd().style.display='none'">Ok</button>
-                       </div>
-                 </div>
-               </div>
    </body>
 </html>

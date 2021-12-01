@@ -25,7 +25,11 @@
           text-decoration: none;
         }
     </style>
-        
+      <script>
+        function myFunction() {
+          alert("Your Account has been deleted successfully");
+        }
+        </script>  
 </head>
     <body style="background-color:beige">
        
@@ -47,11 +51,11 @@
             <button type="submit" name="balance">Balance Recharge</button>
           </a>
         </div>
-        <form action="/accountremoval">
+        
         <div class="clearfix3">
-                  <button type="submit" name="delete">Delete Account</button>
+            <button type="submit" name="delete" onclick="document.getElementById('id01').style.display='block'">Delete Account</button>
           </div>
-        </form>
+        
         <div class="clearfix4">
           <p style="font-weight: bold;">Your Account Details:</p> 
           <p>Username:  {{username}}</p>
@@ -71,6 +75,21 @@
             <input type="image" id="myimage" src={{ url_for('static', filename='Logout.png')}} style="width:50px;height:50px;">
         </a>
         </div>
-
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+          <form class="modal-content">
+            <div class="container">
+              <h2>Delete Account</h2>
+              <p>Are you sure you want to delete your account?</p>
+            
+              <div class="clearfix">
+                <form action= "/accountremoval" method="post">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <input type="submit" value="Delete" style= "width:200px; height:53px; background-color: red; font-size: large; color: white; border: 0cm;">   
+              </form>           
+              </div>
+            </div>
+          </form>
+        </div>
     </body>
 </html>

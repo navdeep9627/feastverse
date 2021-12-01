@@ -4,15 +4,87 @@
 <head>
 <link rel="stylesheet" href="{{ url_for('static', filename='OwnerDashboard.css') }}">
 <title>Owner Dashboard</title>
+<SCRIPT>
+  function ShowfieldDiv() {
+      if (document.getElementById('a').value == '1') {
+          document.getElementById("box1Div").style.display="block";
+          document.getElementById("box2Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box4Div").style.display="none"; 
+          document.getElementById("box5Div").style.display="none";
+          document.getElementById("box6Div").style.display="none"; 
+      }
+      else if (document.getElementById('a').value == '2') {
+          document.getElementById("box2Div").style.display="block";  
+          document.getElementById("box1Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box4Div").style.display="none"; 
+          document.getElementById("box5Div").style.display="none"; 
+          document.getElementById("box6Div").style.display="none";
+      }
+          
+      else if (document.getElementById('a').value == '3') {
+          document.getElementById("box3Div").style.display="block";
+          document.getElementById("box1Div").style.display="none";
+          document.getElementById("box2Div").style.display="none";  
+          document.getElementById("box4Div").style.display="none"; 
+          document.getElementById("box5Div").style.display="none";
+          document.getElementById("box6Div").style.display="none";
+      }
+
+      else if (document.getElementById('a').value == '4') {
+          document.getElementById("box4Div").style.display="block";
+          document.getElementById("box1Div").style.display="none";
+          document.getElementById("box2Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box5Div").style.display="none";
+          document.getElementById("box6Div").style.display="none";
+      }
+
+      else if (document.getElementById('a').value == '5') {
+          document.getElementById("box5Div").style.display="block";
+          document.getElementById("box1Div").style.display="none";
+          document.getElementById("box2Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box4Div").style.display="none";
+          document.getElementById("box6Div").style.display="none";
+      }
+
+      else if (document.getElementById('a').value == '6') {
+          document.getElementById("box6Div").style.display="block";
+          document.getElementById("box1Div").style.display="none";
+          document.getElementById("box2Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box4Div").style.display="none";
+          document.getElementById("box5Div").style.display="none";
+      }
+
+      else if (document.getElementById('a').value == '0') {
+          document.getElementById("box1Div").style.display="none";
+          document.getElementById("box2Div").style.display="none"; 
+          document.getElementById("box3Div").style.display="none"; 
+          document.getElementById("box4Div").style.display="none"; 
+          document.getElementById("box5Div").style.display="none"; 
+          document.getElementById("box6Div").style.display="none";
+      }
+      };
+      
+  </SCRIPT>
 </head>
 <body>
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'London')">Current Stock</button>
-        <button class="tablinks" onclick="openCity(event, 'Paris')">Ordered Stock</button>
-        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Update stock details</button>
+        <button class="tablinks" onclick="openCity(event, 'current')">Current Stock</button>
+        <button class="tablinks" onclick="openCity(event, 'low')">Low Stock</button>
+        <button class="tablinks" onclick="openCity(event, 'ordered')">Ordered Stock</button>
+        <button class="tablinks" onclick="openCity(event, 'update')">Update stock details</button>
+        <div class="clearfix6">
+          <a href="ownerlogin">
+          <input type="image" id="myimage" src={{ url_for('static', filename='Logout.png')}} style="width:50px;height:50px; margin-left: 770px;">
+      </a>
+      </div>
       </div>
 
-      <div id="London" class="tabcontent">
+      <div id="current" class="tabcontent">
         <table>
           <tr>
             <th>Item ID</th>
@@ -22,12 +94,9 @@
             <th>Expiry Date</th>
             <th>Cost Price</th>
             <th>Selling Price</th>
-            <th>Minimum Quantity</th>
           </tr>
           {% for w in items %}
-          <!-- {% if w['quantity'] < w['minimumquantity'] %} -->
           <tr>
-            
             <td>{{ w['itemid'] }}</td>
             <td>{{ w['itemname'] }}</td>
             <td>{{ w['quantity'] }}</td>
@@ -35,25 +104,106 @@
             <td>{{ w['expirydate'] }}</td>
             <td>{{ w['costprice'] }}</td>
             <td>{{ w['sellingprice'] }}</td>
-            <td>{{ w['minimumquantity']}}</td>
           </tr>
-          <!-- {% endif %} -->
           {% endfor %}
           </table>
       </div>
       
-      <div id="Paris" class="tabcontent">
-        <h3>Paris</h3>
-        <p>Paris is the capital of France.</p> 
+      <div id="low" class="tabcontent">
+        <table>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Delivery Date</th>
+            <th>Expiry Date</th>
+            <th>Cost Price</th>
+            <th>Selling Price</th>
+          </tr>
+         
+          {% for w in items %}
+          {% if w['quantity'] < w['minimumquantity'] %}
+          <tr>
+            <td>{{ w['itemid'] }}</td>
+            <td>{{ w['itemname'] }}</td>
+            <td>{{ w['quantity'] }}</td>
+            <td>{{ w['deliverydate'] }}</td>
+            <td>{{ w['expirydate'] }}</td>
+            <td>{{ w['costprice'] }}</td>
+            <td>{{ w['sellingprice'] }}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+         
+          </table>
       </div>
       
-      <div id="Tokyo" class="tabcontent">
-        <h3>Tokyo</h3>
-        <p>Tokyo is the capital of Japan.</p>
+      <div id="ordered" class="tabcontent">
+        <table>
+          <tr>
+            <th>Item ID</th>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Delivery Date</th>
+            <th>Expiry Date</th>
+            <th>Cost Price</th>
+            <th>Selling Price</th>
+          </tr>
+         
+          {% for w in items %}
+          {% if w['status']=='not delivered' %}
+          <tr>
+            <td>{{ w['itemid'] }}</td>
+            <td>{{ w['itemname'] }}</td>
+            <td>{{ w['quantity'] }}</td>
+            <td>{{ w['deliverydate'] }}</td>
+            <td>{{ w['expirydate'] }}</td>
+            <td>{{ w['costprice'] }}</td>
+            <td>{{ w['sellingprice'] }}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+         
+          </table>
+      </div>
+
+      <div id="update" class="tabcontent">
+        <form action = '/updateItems', method="post">
+          <h1 style="margin-left: 60px;">Update Stock Information</h1>
+          <select class="clearfix" id="abc" name = "selectedfield1"">
+            <option value="0">Select the Item Id to update</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+              <select class="clearfix1" id="a" name = "selectedfield2" onchange="ShowfieldDiv();">
+                  <option value="0">Select the field to update</option>
+                  <option value="1">Item Name</option>
+                  <option value="2">Quantity</option>
+                  <option value="3">Delivery Date</option>
+                  <option value="4">Expiry Date</option>
+                  <option value="5">Cost Price</option>
+                  <option value="6">Selling Price</option>
+                </select>
+            <input type="text" id="box1Div" style="display:none;" placeholder="Enter Item Name" name = "updatename"><br>
+            <input type="number" id="box2Div" style="display:none;" placeholder="Enter Quantity" name = "updatequantity"><br>
+            <input type="text" id="box3Div" style="display:none;" placeholder="Enter Delivery Date" name = "updatedd"><br>
+            <input type="text" id="box4Div" style="display:none;" placeholder="Enter Expiry Date" name = "updateed"><br>
+            <input type="number" id="box5Div" style="display:none;" placeholder="Enter Cost Price" name = "updatecp"><br>
+            <input type="number" id="box5Div" style="display:none;" placeholder="Enter Selling Price" name = "updatesp"><br>
+            <input type="submit" id= "btn" style="display: block;" value="Submit"><br>
+          </form>
       </div>
 
       <script>
-        function openCity(evt, cityName) {
+        function openCity(evt, tableName) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
           for (i = 0; i < tabcontent.length; i++) {
@@ -63,7 +213,7 @@
           for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
           }
-          document.getElementById(cityName).style.display = "block";
+          document.getElementById(tableName).style.display = "block";
           evt.currentTarget.className += " active";
         }
         </script>

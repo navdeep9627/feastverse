@@ -1,4 +1,6 @@
 
+from flask.helpers import url_for
+from werkzeug.utils import redirect
 from app import app
 from flask import render_template,request
 from run import *
@@ -20,7 +22,7 @@ class Customer(db.Model):
     phonenum = db.Column(db.String(20), nullable=False)
     address = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    accountbalance = db.Column(db.Integer, nullable=True)
+    accountbalance = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f"Customer('{self.custid}', '{self.username}', '{self.fullname}', '{self.email}','{self.phonenum}', '{self.password}', '{self.address}', '{self.accountbalance}')"
@@ -46,6 +48,9 @@ db.create_all()
 
 @app.route('/')
 def index():
+    # Item1 = Item(itemname = 'Apples', expirydate = '2023-06-29 08:15:27.243860', costprice = 30, sellingprice = 30, quantity = 50, minquantity = 5, status = 0)
+    # db.session.add(Item1)
+    # db.session.commit()
     # print(Item.query.all())
     return render_template("Index.html")
 
@@ -109,6 +114,41 @@ def getupdatevalue():
     print(Customer.query.all())
     return render_template("CustomerDashboard.html",username = customerupdate.username, fullname = customerupdate.fullname, email = customerupdate.email, phonenum = customerupdate.phonenum, address = customerupdate.address, accountbalance = customerupdate.accountbalance)
 
+@app.route('/updateItems', methods =['POST'])
+def getupdateItem():
+    selectedid=str(request.form['selectedfield1'])
+    selectedfield = str(request.form['selectedfield2'])
+    Itemupdate = Item.query.filter_by(itemid = selectedid).first()
+    if selectedfield == "1":
+        Itemupdate.itemname = str(request.form['updatename'])
+    elif selectedfield == "2":
+        Itemupdate.quantity = str(request.form['updatequantity'])
+    elif selectedfield == "3":
+        Itemupdate.deliverydate = str(request.form['updatedd'])
+    elif selectedfield == "4":
+        Itemupdate.expirydate = str(request.form['updateed'])
+    elif selectedfield == "5":
+        Itemupdate.costprice = str(request.form['updatecp'])
+    elif selectedfield == "6":
+        Itemupdate.sellingprice = str(request.form['updatesp'])
+    db.session.commit()
+    print(selectedid)
+    # print(Customer.query.all())
+    items=[]
+    tableentryname = db.session.query(Item)
+    for testdata in tableentryname:
+        a={'itemid':testdata.itemid,
+                'itemname':testdata.itemname,
+                'deliverydate':testdata.deliverydate,
+                'expirydate':testdata.expirydate,
+                'costprice':testdata.costprice,
+                'sellingprice':testdata.sellingprice,
+                'quantity':testdata.quantity,
+                'minimumquantity':testdata.minquantity,
+                'status':testdata.status}
+        items.append(a)
+    return render_template("OwnerDashboard.html", items=items)
+    
 @app.route('/balancerecharge')
 def balancerecharge():
     return render_template("BalanceRecharge.html")
@@ -116,11 +156,16 @@ def balancerecharge():
 @app.route('/balanceupdate', methods =['POST'])
 def balanceupdate():
     # check type casting to Integer from String!!!!!!!!!!!!
+    rechargeamt = 0
     rechargeamt = int(request.form['rechargeamt'])
     balanceupdate = Customer.query.filter_by(username = usn).first()
-    balanceupdate.accountbalance = balanceupdate.accountbalance + int('newbalance')
+    balanceupdate.accountbalance = int(balanceupdate.accountbalance) + rechargeamt
     db.session.commit()
-    return render_template("CustomerLoggedIn.html")
+    tableentryname = db.session.query(Customer).filter(Customer.username == usn)
+    for testdata in tableentryname:
+        print("hi")
+    return render_template("CustomerDashboard.html", username = testdata.username, fullname = testdata.fullname, email = testdata.email, phonenum = testdata.phonenum, address = testdata.address, accountbalance = testdata.accountbalance)
+    
 
 @app.route('/accountremoval')
 def accountremoval():
@@ -158,4 +203,19 @@ def adminvalidation():
 
 @app.route('/ownerdashbard')
 def admindashboard():
-    return render_template("OwnerDashboard.html")
+    tableentryname = db.session.query(Item)
+    items = []
+    for testdata in tableentryname:
+        print("hi")
+        a={'itemid':testdata.itemid,
+                'itemname':testdata.itemname,
+                'deliverydate':testdata.deliverydate,
+                'expirydate':testdata.expirydate,
+                'costprice':testdata.costprice,
+                'sellingprice':testdata.sellingprice,
+                'quantity':testdata.quantity,
+                'minimumquantity':testdata.minquantity,
+                'status':testdata.status}
+        items.append(a)
+    return render_template("OwnerDashboard.html", items=items)
+
